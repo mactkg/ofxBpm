@@ -42,6 +42,7 @@ public:
     
     void setBpm(float bpm);
     float getBpm() const;
+    float getBeatByPercent() const;
     
     void setBeatPerBar(int beatPerBar);
     

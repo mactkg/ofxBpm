@@ -140,6 +140,10 @@ float ofxBpm::getBpm() const{
     return _bpm;
 }
 
+float ofxBpm::getBeatByPercent() const{
+    return (float)_countOfTick/OFX_BPM_TICK;
+}
+
 bool ofxBpm::isPlaying() const{
     
     return _isPlaying;
