@@ -148,3 +148,22 @@ bool ofxBpm::isPlaying() const{
     
     return _isPlaying;
 }
+
+void ofxBpm::tap() {
+    long tappedTime = ofGetElapsedTimeMicros();
+    _tappedTimes.push_back(tappedTime);
+    
+    if(_tappedTimes.size() > OFX_BPM_TAP_COUNT+1)
+        _tappedTimes.pop_front();
+    else if(_tappedTimes.size() < OFX_BPM_TAP_COUNT)
+        return;
+    
+    for (auto it = _tappedTimes.begin(); it != _tappedTimes.end(); it++) {
+        if (60 / (*(it+1) - *it) * 1000. * 1000. > OFX_BPM_MIN) {
+            return;
+        }
+    }
+    double sec = (_tappedTimes.back() - _tappedTimes.front())/1000./1000.;
+    float bpm = OFX_BPM_TAP_COUNT*60./sec;
+    setBpm(bpm);
+}

@@ -33,12 +33,14 @@ public:
     static const float  OFX_BPM_DEFAULT;
     static const float OFX_BPM_MIN;
     static const int OFX_BPM_TICK;
+    static const int OFX_BPM_TAP_COUNT;
 
     explicit ofxBpm(float bpm = OFX_BPM_DEFAULT,int beatPerBar = 4);
     
     void start();
     void stop();
     void reset();
+    void tap();
     
     void setBpm(float bpm);
     float getBpm() const;
@@ -66,6 +68,8 @@ private:
     float _preTime;
     int _beatPerBar;
     
+    deque<long> _tappedTimes;
+    
     inline int getCountOfTick() const;
 };
 
@@ -74,3 +78,4 @@ const float ofxBpm::OFX_BPM_MAX = 300. ;
 const float ofxBpm::OFX_BPM_DEFAULT = 120.;
 const float ofxBpm::OFX_BPM_MIN = 1.;
 const int ofxBpm::OFX_BPM_TICK = 960;
+const int ofxBpm::OFX_BPM_TAP_COUNT = 4;
